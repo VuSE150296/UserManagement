@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <link rel="stylesheet" href="style.css" type="text/css"/>
+
+        <title>Login Page</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src='https://www.google.com/recaptcha/api.js?hl=vi'></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="https://apis.google.com/js/platform.js" async defer></script>
+<!--        <meta name="google-signin-scope" content="profile email">
+        <meta name="google-signin-client_id" content="314092332384-u5t3rspm4a6d9spaa1hdpk9eu0ei4koa.apps.googleusercontent.com">-->
+    </head>
+    <body>
+        <form action="LoginServlet" method="POST" onsubmit="return validateForm()">
+            User ID<input type="text" name="userID" required="" /><br/>
+            Password<input type="password" name="password" required="" /><br/>
+            <div class="g-recaptcha" data-sitekey="6LenYD8eAAAAACenM6wa8CmMAAJQ_Kcytd3arNQZ"></div><br/>
+            <div class="g-signin2" data-onsuccess="onSignIn"></div><br/> 
+            <input type="submit" name="action" value="Login" /> 
+            <input type="reset" value="Reset" />
+        </form>
+        <script type="text/javascript" >
+            function validateForm(){
+                if(grecaptcha.getResponse()){
+                    return true;
+                }else {
+                    alert("Please prove that you're not a robot!!!");
+                    return false;
+                }
+            }
+        </script>
+<!--        <script>
+            //google callback. This function will redirect to our login servlet
+            function onSignIn(googleUser) {
+                var profile = googleUser.getBasicProfile();
+                console.log('ID: ' + profile.getId());
+                console.log('Name: ' + profile.getName());
+                console.log('Image URL: ' + profile.getImageUrl());
+                console.log('Email: ' + profile.getEmail());
+                console.log('id_token: ' + googleUser.getAuthResponse().id_token);
+
+                //do not post all above info to the server because that is not secure.
+                //just send the id_token
+
+                var redirectUrl = 'login';
+
+                //using jquery to post data dynamically
+                var form = $('<form action="' + redirectUrl + '" method="POST">' +
+                                '<input type="text" name="id_token" value="' +
+                                googleUser.getAuthResponse().id_token + '" />' + 
+                                                                        '</form>');
+                $('body').append(form);
+                form.submit();
+            }
+        </script>-->
+    </body>
+</html>
